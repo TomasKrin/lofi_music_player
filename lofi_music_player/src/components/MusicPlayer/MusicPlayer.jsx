@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import AudioControls from "../AudioControls/AudioControls";
+import styled from "styled-components";
 
 const MusicPlayer = ({ songs }) => {
   const [songIndex, setSongIndex] = useState(0);
@@ -123,14 +124,8 @@ const MusicPlayer = ({ songs }) => {
     <div>
       <h2>{title}</h2>
       <h3>{author}</h3>
-      <AudioControls
-        isPlaying={isPlaying}
-        onPrevClick={toPrevTrack}
-        onNextClick={toNextTrack}
-        onPlayPauseClick={setIsPlaying}
-      />
-      <div style={{ display: "flex" }}>
-        <input
+      <PlayerContainer>
+        <SongTimeBar
           type="range"
           value={trackProgress}
           step="1"
@@ -140,18 +135,37 @@ const MusicPlayer = ({ songs }) => {
           onMouseUp={onScrubEnd}
           onKeyUp={onScrubEnd}
         />
-        <p>{`${formattedTime}`}</p>
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.01}
-          value={volume}
-          onChange={handleVolumeChange}
-        />
-      </div>
+        <div style={{ display: `flex` }}>
+          <AudioControls
+            isPlaying={isPlaying}
+            onPrevClick={toPrevTrack}
+            onNextClick={toNextTrack}
+            onPlayPauseClick={setIsPlaying}
+          />
+          <p>{`${formattedTime}`}</p>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.01}
+            value={volume}
+            onChange={handleVolumeChange}
+          />
+        </div>
+      </PlayerContainer>
     </div>
   );
 };
 
 export default MusicPlayer;
+
+const PlayerContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  -webkit-appearance: none;
+`;
+
+const SongTimeBar = styled.input`
+  flex: 1;
+  background-color: black;
+`;
