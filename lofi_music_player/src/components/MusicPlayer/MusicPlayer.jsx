@@ -14,6 +14,13 @@ const MusicPlayer = ({ songs }) => {
 
   const { duration } = audioRef.current;
 
+  const handleVolumeChange = (event) => {
+    setVolume(event.target.value);
+    audioRef.current.volume = event.target.value;
+  };
+
+  audioRef.current.volume = volume;
+
   const toPrevTrack = () => {
     if (songIndex - 1 < 0) {
       setSongIndex(songs.length - 1);
@@ -99,10 +106,6 @@ const MusicPlayer = ({ songs }) => {
     setTrackProgress(audioRef.current.currentTime);
   };
 
-  useEffect(() => {
-    audioRef.current.volume = volume;
-  }, [volume]);
-
   const onScrubEnd = () => {
     if (!isPlaying) {
       setIsPlaying(true);
@@ -110,19 +113,11 @@ const MusicPlayer = ({ songs }) => {
     startTimer();
   };
 
-  const handleVolumeChange = (event) => {
-    setVolume(event.target.value);
-    audioRef.current.volume = event.target.value;
-  };
-
   let s = parseInt(Math.ceil(audioRef.current.currentTime % 60));
   let m = parseInt((audioRef.current.currentTime / 60) % 60);
 
   let formattedS = s < 10 ? `0${s}` : `${s}`;
   let formattedTime = `${m}:${formattedS}`;
-
-  console.log(volume);
-  console.log(`song`, audioRef.current.volume);
 
   return (
     <div>
