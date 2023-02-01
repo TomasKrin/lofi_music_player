@@ -39,7 +39,6 @@ const MusicPlayer = ({ songs }) => {
   }, [isPlaying]);
 
   useEffect(() => {
-    // Pause and clean up on unmount
     return () => {
       audioRef.current.pause();
       clearInterval(intervalRef.current);
