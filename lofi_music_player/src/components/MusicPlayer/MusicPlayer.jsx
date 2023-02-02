@@ -6,8 +6,9 @@ const MusicPlayer = ({ songs }) => {
   const [songIndex, setSongIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const { author, path, title } = songs[songIndex];
   const [volume, setVolume] = useState(0.5);
+
+  const { author, path, title } = songs[songIndex];
 
   const audioRef = useRef(new Audio(path));
   const intervalRef = useRef();
@@ -121,51 +122,128 @@ const MusicPlayer = ({ songs }) => {
   let formattedTime = `${m}:${formattedS}`;
 
   return (
-    <div>
-      <h2>{title}</h2>
-      <h3>{author}</h3>
-      <PlayerContainer>
-        <SongTimeBar
-          type="range"
-          value={trackProgress}
-          step="1"
-          min="0"
-          max={duration ? duration : `${duration}`}
-          onChange={(e) => onScrub(e.target.value)}
-          onMouseUp={onScrubEnd}
-          onKeyUp={onScrubEnd}
-        />
-        <div style={{ display: `flex` }}>
-          <AudioControls
-            isPlaying={isPlaying}
-            onPrevClick={toPrevTrack}
-            onNextClick={toNextTrack}
-            onPlayPauseClick={setIsPlaying}
-          />
-          <p>{`${formattedTime}`}</p>
-          <input
+    <MainContainer>
+      <PageContentContainer>
+        <Title>
+          <h2>{title}</h2>
+          <h3>
+            <span>Artist: </span>
+            {author}
+          </h3>
+        </Title>
+        <PlayerContainer>
+          <SongTimeBar
             type="range"
-            min={0}
-            max={1}
-            step={0.01}
-            value={volume}
-            onChange={handleVolumeChange}
+            value={trackProgress}
+            step="1"
+            min="0"
+            max={duration ? duration : `${duration}`}
+            onChange={(e) => onScrub(e.target.value)}
+            onMouseUp={onScrubEnd}
+            onKeyUp={onScrubEnd}
           />
-        </div>
-      </PlayerContainer>
-    </div>
+          <ControlsContainer>
+            <AudioControls
+              isPlaying={isPlaying}
+              onPrevClick={toPrevTrack}
+              onNextClick={toNextTrack}
+              onPlayPauseClick={setIsPlaying}
+            />
+            <p>{`${formattedTime}`}</p>
+            <VolumeControlBar
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={volume}
+              onChange={handleVolumeChange}
+            />
+          </ControlsContainer>
+        </PlayerContainer>
+      </PageContentContainer>
+    </MainContainer>
   );
 };
 
 export default MusicPlayer;
 
+const MainContainer = styled.div`
+  background: #654ea3;
+  background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);
+  background: linear-gradient(to right, #eaafc8, #654ea3);
+  height: 100vh;
+`;
+
+const PageContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 90vh;
+  padding: 30px 40px;
+  gap: 50px;
+`;
+
+const ControlsContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-left: 20px;
+  align-items: center;
+
+  p {
+    width: 30px;
+    font-size: 18px;
+  }
+`;
+
 const PlayerContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  -webkit-appearance: none;
+  align-items: center;
 `;
 
 const SongTimeBar = styled.input`
   flex: 1;
-  background-color: black;
+  height: 15px;
+  -webkit-appearance: none;
+  width: 100%;
+  background: black;
+  transition: background 0.2s ease;
+  cursor: pointer;
+  &:active {
+    background: #3b7677;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: gray;
+    height: 15px;
+    width: 1rem;
+  }
+`;
+
+const VolumeControlBar = styled.input`
+  height: 15px;
+  -webkit-appearance: none;
+  background: black;
+  transition: background 0.2s ease;
+  cursor: pointer;
+  &:active {
+    background: #3b7677;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: gray;
+    height: 15px;
+    width: 1rem;
+  }
+`;
+
+const Title = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  span {
+    font-weight: 400;
+  }
 `;
