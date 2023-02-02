@@ -6,14 +6,7 @@ import {
   AiFillPlayCircle,
 } from "react-icons/ai";
 
-const AudioControls = ({
-  isPlaying,
-  onPlayPauseClick,
-  onPrevClick,
-  onNextClick,
-  textAnimation,
-  setTextAnimation,
-}) => {
+const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }) => {
   return (
     <ControlsContainer>
       <AiFillFastBackward type="button" aria-label="Previous" onClick={onPrevClick} />
