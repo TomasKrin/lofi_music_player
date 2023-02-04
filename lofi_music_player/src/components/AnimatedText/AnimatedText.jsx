@@ -13,7 +13,7 @@ const AnimatedText = ({ song }) => (
     {song.map((composition) => (
       <CSSTransition
         key={`${composition.title}-${composition.author}`}
-        classNames="book"
+        classNames="song"
         timeout={500}
         unmountOnExit
       >
@@ -32,20 +32,18 @@ const TextContainer = styled.div`
   width: 100%;
   height: 100%;
 
-  &.book-enter {
+  &.song-enter {
     opacity: 0;
   }
-  &.book-enter-active {
+  &.song-enter-active {
     opacity: 1;
-    transform: translateY(0);
     transition: opacity 500ms ease-in-out;
   }
-  &.book-exit {
+  &.song-exit {
     opacity: 1;
   }
-  &.book-exit-active {
+  &.song-exit-active {
     opacity: 0;
-
     transition: opacity 500ms ease-in-out;
   }
 `;
