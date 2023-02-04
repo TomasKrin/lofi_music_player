@@ -178,7 +178,7 @@ const PageContentContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   height: 90vh;
-  padding: 30px 40px;
+  padding: 25px 40px;
   gap: 50px;
 `;
 
