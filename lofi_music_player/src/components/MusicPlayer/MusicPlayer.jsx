@@ -240,7 +240,7 @@ const VolumeControlBar = styled.input`
 
 const Title = styled.div`
   display: flex;
-  width: 500px;
-  height: 100px;
+  width: 400px;
+  height: 90px;
   position: relative;
 `;

@@ -2,7 +2,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styled from "styled-components";
 
 const Text = ({ title, author }) => (
-  <TextContainer className="text-container">
+  <TextContainer>
     <h1>{title}</h1>
     <p>by {author}</p>
   </TextContainer>
@@ -11,12 +11,7 @@ const Text = ({ title, author }) => (
 const AnimatedText = ({ song }) => (
   <TransitionGroup>
     {song.map((composition) => (
-      <CSSTransition
-        key={`${composition.title}-${composition.author}`}
-        classNames="song"
-        timeout={500}
-        unmountOnExit
-      >
+      <CSSTransition key={`${composition.title}-${composition.author}`} timeout={500} unmountOnExit>
         <Text title={composition.title} author={composition.author} />
       </CSSTransition>
     ))}
@@ -32,17 +27,17 @@ const TextContainer = styled.div`
   width: 100%;
   height: 100%;
 
-  &.song-enter {
+  &.enter {
     opacity: 0;
   }
-  &.song-enter-active {
+  &.enter-active {
     opacity: 1;
     transition: opacity 500ms ease-in-out;
   }
-  &.song-exit {
+  &.exit {
     opacity: 1;
   }
-  &.song-exit-active {
+  &.exit-active {
     opacity: 0;
     transition: opacity 500ms ease-in-out;
   }
