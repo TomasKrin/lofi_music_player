@@ -11,7 +11,7 @@ const Text = ({ title, author }) => (
 const AnimatedText = ({ song }) => (
   <TransitionGroup>
     {song.map((composition) => (
-      <CSSTransition key={`${composition.title}-${composition.author}`} timeout={500} unmountOnExit>
+      <CSSTransition key={`${composition.title}-${composition.author}`} timeout={600} unmountOnExit>
         <Text title={composition.title} author={composition.author} />
       </CSSTransition>
     ))}
@@ -32,13 +32,13 @@ const TextContainer = styled.div`
   }
   &.enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in-out;
+    transition: opacity 600ms ease-in-out;
   }
   &.exit {
     opacity: 1;
   }
   &.exit-active {
     opacity: 0;
-    transition: opacity 500ms ease-in-out;
+    transition: opacity 600ms ease-in-out;
   }
 `;
