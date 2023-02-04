@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import AudioControls from "../AudioControls/AudioControls";
 import styled from "styled-components";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 const MusicPlayer = ({ songs }) => {
   const [songIndex, setSongIndex] = useState(0);
@@ -8,7 +9,9 @@ const MusicPlayer = ({ songs }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
 
-  const { author, path, title } = songs[songIndex];
+  const song = songs[songIndex];
+
+  const { path } = song;
 
   const audioRef = useRef(new Audio(path));
   const intervalRef = useRef();
@@ -125,11 +128,7 @@ const MusicPlayer = ({ songs }) => {
     <MainContainer>
       <PageContentContainer>
         <Title>
-          <h2>{title}</h2>
-          <h3>
-            <span>Artist: </span>
-            {author}
-          </h3>
+          <AnimatedText song={[song]} />
         </Title>
         <PlayerContainer>
           <SongTimeBar
@@ -241,9 +240,7 @@ const VolumeControlBar = styled.input`
 
 const Title = styled.div`
   display: flex;
-  flex-direction: column;
-
-  span {
-    font-weight: 400;
-  }
+  width: 500px;
+  height: 100px;
+  position: relative;
 `;
