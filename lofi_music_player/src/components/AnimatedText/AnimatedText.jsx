@@ -2,7 +2,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styled from "styled-components";
 
 const Text = ({ title, author }) => (
-  <TextContainer>
+  <TextContainer data-testid="text-component">
     <h1>{title}</h1>
     <p>by {author}</p>
   </TextContainer>
