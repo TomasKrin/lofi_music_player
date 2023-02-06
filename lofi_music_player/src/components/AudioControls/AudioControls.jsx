@@ -17,7 +17,7 @@ const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
           onClick={() => onPlayPauseClick(false)}
         />
       ) : (
-        <AiFillPlayCircle type="button" aria-label="Pause" onClick={() => onPlayPauseClick(true)} />
+        <AiFillPlayCircle type="button" aria-label="Play" onClick={() => onPlayPauseClick(true)} />
       )}
 
       <AiFillFastForward type="button" aria-label="Next" onClick={onNextClick} />
