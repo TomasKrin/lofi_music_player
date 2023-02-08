@@ -1,6 +1,6 @@
+import React from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styled from "styled-components";
-import React, { useRef } from "react";
 
 const Text = ({ title, author }) => (
   <TextContainer data-testid="text-component">
@@ -9,24 +9,15 @@ const Text = ({ title, author }) => (
   </TextContainer>
 );
 
-const AnimatedText = ({ song }) => {
-  const nodeRef = useRef(null);
-
-  return (
-    <TransitionGroup>
-      {song.map((composition) => (
-        <CSSTransition
-          key={`${composition.title}-${composition.author}`}
-          timeout={600}
-          unmountOnExit
-          nodeRef={nodeRef}
-        >
-          <Text title={composition.title} author={composition.author} />
-        </CSSTransition>
-      ))}
-    </TransitionGroup>
-  );
-};
+const AnimatedText = ({ song }) => (
+  <TransitionGroup>
+    {song.map((composition) => (
+      <CSSTransition key={`${composition.title}-${composition.author}`} timeout={600} unmountOnExit>
+        <Text title={composition.title} author={composition.author} />
+      </CSSTransition>
+    ))}
+  </TransitionGroup>
+);
 
 export default AnimatedText;
 
@@ -36,7 +27,6 @@ const TextContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-
   &.enter {
     opacity: 0;
   }
