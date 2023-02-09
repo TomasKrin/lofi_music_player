@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { LofiAPI } from "../consts/APIS";
+import { LofiAPI } from "../api/musicAPI";
 
 const MusicContext = createContext();
 
@@ -20,7 +20,17 @@ const MusicProvider = ({ children }) => {
       .catch((error) => console.error("Music", error));
   }, []);
 
-  return <MusicContext.Provider value={{ music, isLoading }}>{children}</MusicContext.Provider>;
+  const songsCheck = (arr) => {
+    if (arr && isLoading === false) {
+      return arr;
+    } else {
+      return [];
+    }
+  };
+
+  const songs = songsCheck(music);
+
+  return <MusicContext.Provider value={{ songs, isLoading }}>{children}</MusicContext.Provider>;
 };
 
 export { MusicContext, MusicProvider };
