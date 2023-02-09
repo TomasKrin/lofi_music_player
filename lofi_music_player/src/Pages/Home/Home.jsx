@@ -1,23 +1,13 @@
 import { useContext, useState } from "react";
 import { MusicContext } from "../../contexts/MusicContext";
-import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
+import MusicPlayer from "../MusicPlayer/MusicPlayer";
 
 const Home = () => {
-  const { music, isLoading } = useContext(MusicContext);
+  const { songs } = useContext(MusicContext);
 
   const [currentSong, setCurrentSong] = useState(null);
 
   const [started, setStarted] = useState(false);
-
-  const songsCheck = (arr) => {
-    if (arr && isLoading === false) {
-      return arr;
-    } else {
-      return [];
-    }
-  };
-
-  const songs = songsCheck(music);
 
   const start = () => {
     setCurrentSong(songs[0]);
