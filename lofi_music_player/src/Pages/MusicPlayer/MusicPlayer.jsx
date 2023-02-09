@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useContext } from "react";
 import styled from "styled-components";
 import AudioControls from "../../components/AudioControls/AudioControls";
 import AnimatedText from "../../components/AnimatedText/AnimatedText";
 import { mainBackgroundColor } from "../../consts/colors";
+import { MusicContext } from "../../contexts/MusicContext";
 
-const MusicPlayer = ({ songs }) => {
+const MusicPlayer = () => {
+  const { songs } = useContext(MusicContext);
   const [songIndex, setSongIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
