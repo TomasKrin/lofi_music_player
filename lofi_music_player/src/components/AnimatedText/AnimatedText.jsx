@@ -23,7 +23,7 @@ export default AnimatedText;
 
 const TextContainer = styled.div`
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -40,5 +40,8 @@ const TextContainer = styled.div`
   &.exit-active {
     opacity: 0;
     transition: opacity 600ms ease-in-out;
+  }
+  h1 {
+    margin-bottom: 10px;
   }
 `;
