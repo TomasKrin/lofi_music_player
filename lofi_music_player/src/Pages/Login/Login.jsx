@@ -1,6 +1,16 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import * as Yup from "yup";
+import Button from "../../components/Button/Button";
+import FormikInput from "../../components/Formik/FormikInput";
+import { mainBackgroundColor } from "../../consts/colors";
 import { REGISTER_PATH } from "../../routes/consts";
+
+const validationSchema = Yup.object().shape({
+  nickname: Yup.string().required("Required"),
+  password: Yup.string().required("Required"),
+});
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,47 +23,68 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <PageContainer>
       <Formik
         initialValues={{
           nickname: "",
           password: "",
         }}
-        validate={(values) => {
-          const errors = {};
-
-          if (!values.nickname) {
-            errors.nickname = "Required";
-          }
-          if (!values.password) {
-            errors.password = "Required";
-          }
-          console.log(errors);
-          return errors;
-        }}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <div>
-              <Field type="text" name="nickname"></Field>
-              <ErrorMessage name="nickname" component="div"></ErrorMessage>
-            </div>
-            <div>
-              <Field type="password" name="password"></Field>
-              <ErrorMessage name="password" component="div"></ErrorMessage>
-            </div>
-            <div>
-              <button type="submit" disabled={isSubmitting}>
+          <StyledForm>
+            <h1>Login</h1>
+            <RowContainer>
+              <FormikInput type="text" name="nickname" placeholder="Nickname" />
+            </RowContainer>
+            <RowContainer>
+              <FormikInput type="password" name="password" placeholder="Password" />
+            </RowContainer>
+            <RowContainer>
+              <Button type="submit" disabled={isSubmitting}>
                 Login
-              </button>
-              <span onClick={() => navigate(REGISTER_PATH)}>Register</span>
-            </div>
-          </Form>
+              </Button>
+              <span onClick={() => navigate(REGISTER_PATH)}>Sign Up</span>
+            </RowContainer>
+          </StyledForm>
         )}
       </Formik>
-    </div>
+    </PageContainer>
   );
 };
 
 export default Login;
+
+const PageContainer = styled.div`
+  ${mainBackgroundColor}
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 16px;
+`;
+
+const RowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  span {
+    margin-top: 15px;
+    align-self: center;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;

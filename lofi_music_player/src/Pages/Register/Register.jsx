@@ -1,6 +1,19 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import * as Yup from "yup";
+import Button from "../../components/Button/Button";
+import FormikInput from "../../components/Formik/FormikInput";
+import { mainBackgroundColor } from "../../consts/colors";
 import { LOGIN_PATH } from "../../routes/consts";
+
+const validationSchema = Yup.object().shape({
+  nickname: Yup.string().required("Required"),
+  password: Yup.string().required("Required"),
+  confirmPassword: Yup.string()
+    .required("Please retype your password.")
+    .oneOf([Yup.ref("password")], "Your passwords do not match."),
+});
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,55 +28,72 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <PageContainer>
       <Formik
         initialValues={{
           nickname: "",
           password: "",
           confirmPassword: "",
         }}
-        validate={(values) => {
-          const errors = {};
-
-          if (!values.nickname) {
-            errors.nickname = "Required";
-          }
-          if (!values.password) {
-            errors.password = "Required";
-          }
-          if (values.password !== values.confirmPassword || !values.confirmPassword) {
-            errors.confirmPassword = `Confirm Password Field is Empty, or Password doesn't match`;
-          }
-
-          return errors;
-        }}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <div>
-              <Field type="text" name="nickname"></Field>
-              <ErrorMessage name="nickname" component="div"></ErrorMessage>
-            </div>
-            <div>
-              <Field type="password" name="password"></Field>
-              <ErrorMessage name="password" component="div"></ErrorMessage>
-            </div>
-            <div>
-              <Field type="password" name="confirmPassword"></Field>
-              <ErrorMessage name="confirmPassword" component="div"></ErrorMessage>
-            </div>
-            <div>
-              <button type="submit" disabled={isSubmitting}>
-                Register
-              </button>
+          <StyledForm>
+            <h1>Register</h1>
+            <RowContainer>
+              <FormikInput type="text" name="nickname" placeholder="Nickname" />
+            </RowContainer>
+            <RowContainer>
+              <FormikInput type="password" name="password" placeholder="Password" />
+            </RowContainer>
+            <RowContainer>
+              <FormikInput type="password" name="confirmPassword" placeholder="Confirm Passsword" />
+            </RowContainer>
+            <RowContainer>
+              <Button type="submit" disabled={isSubmitting}>
+                Submit
+              </Button>
               <span onClick={() => navigate(LOGIN_PATH)}>LogIn</span>
-            </div>
-          </Form>
+            </RowContainer>
+          </StyledForm>
         )}
       </Formik>
-    </div>
+    </PageContainer>
   );
 };
 
 export default Register;
+
+const PageContainer = styled.div`
+  ${mainBackgroundColor}
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 16px;
+`;
+
+const RowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  span {
+    margin-top: 15px;
+    align-self: center;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
