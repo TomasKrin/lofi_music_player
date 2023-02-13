@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
-import { MusicContext } from "../../contexts/MusicContext";
+import { useState } from "react";
+import { useMusic } from "../../hooks/music";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
 
 const Home = () => {
-  const { songs } = useContext(MusicContext);
+  const { data } = useMusic();
+  const songs = data || [];
 
   const [currentSong, setCurrentSong] = useState(null);
 
@@ -13,8 +14,6 @@ const Home = () => {
     setCurrentSong(songs[0]);
     setStarted(true);
   };
-
-  console.log(currentSong);
 
   if (started) {
     return <div>{currentSong && <MusicPlayer songs={songs}></MusicPlayer>}</div>;
