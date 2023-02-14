@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const LofiAPI = `https://lofi-terminal-default-rtdb.firebaseio.com/songs.json`;
+const LofiAPI = `http://localhost:4000/songs`;
 
 export const fetchMusic = () => {
   return axios.get(LofiAPI).then((response) => response.data);

@@ -15,6 +15,8 @@ const Home = () => {
     setStarted(true);
   };
 
+  // return !songs.length ? <p>Loading...</p> : <MusicPlayer songs={songs}></MusicPlayer>;
+
   if (started) {
     return <div>{currentSong && <MusicPlayer songs={songs}></MusicPlayer>}</div>;
   } else {
