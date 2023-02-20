@@ -4,6 +4,7 @@ import AudioControls from "../../components/AudioControls/AudioControls";
 import AnimatedText from "../../components/AnimatedText/AnimatedText";
 import { mainBackgroundColor } from "../../consts/colors";
 import { useMusic } from "../../hooks/music";
+import Canvas from "../../components/Canvas/Canvas";
 
 const MusicPlayer = () => {
   const { data } = useMusic();
@@ -129,9 +130,12 @@ const MusicPlayer = () => {
   let formattedS = s < 10 ? `0${s}` : `${s}`;
   let formattedTime = `${m}:${formattedS}`;
 
+  const draw = (context) => {};
+
   return (
     <MainContainer>
       <PageContentContainer>
+        <Canvas draw={draw} height="1" width="4"></Canvas>
         <Title>
           <AnimatedText song={[song]} />
         </Title>
