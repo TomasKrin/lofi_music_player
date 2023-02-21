@@ -54,6 +54,10 @@ const Container = styled.div`
   ${mainBackgroundColor}
   color: white;
   height: 100vh;
+
+  @media (max-width: 420px) {
+    height: 100%;
+  }
 `;
 
 const TextAndButtonContainer = styled.div`

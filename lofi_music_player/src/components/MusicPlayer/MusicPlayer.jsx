@@ -184,6 +184,10 @@ const PageContentContainer = styled.div`
   height: 90vh;
   padding: 0px 40px;
   gap: 30px;
+  @media (max-width: 768px) {
+    gap: 10px;
+    padding: 0px 20px;
+  }
 `;
 
 const ControlsContainer = styled.div`
@@ -204,7 +208,7 @@ const PlayerContainer = styled.div`
   align-items: center;
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
 `;
 
@@ -216,6 +220,7 @@ const SongTimeBar = styled.input`
   background: black;
   transition: background 0.2s ease;
   cursor: pointer;
+  /* margin-top: 20px; */
   &:active {
     background: #482880;
   }

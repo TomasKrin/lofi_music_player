@@ -23,7 +23,7 @@ export default AnimatedText;
 
 const TextContainer = styled.div`
   position: absolute;
-  top: 40px;
+  top: 30px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -48,5 +48,14 @@ const TextContainer = styled.div`
   }
   h1 {
     margin-bottom: 10px;
+    @media (max-width: 768px) {
+      font-size: 25px;
+    }
+  }
+
+  p {
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 `;
