@@ -176,16 +176,14 @@ export default MusicPlayer;
 const MainContainer = styled.div`
   ${mainBackgroundColor}
   color: white;
-  height: 100vh;
 `;
 
 const PageContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   height: 90vh;
-  padding: 25px 40px;
-  gap: 50px;
+  padding: 0px 40px;
+  gap: 30px;
 `;
 
 const ControlsContainer = styled.div`

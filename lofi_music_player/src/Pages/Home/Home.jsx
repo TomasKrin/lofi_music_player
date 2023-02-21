@@ -4,6 +4,7 @@ import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 import Buttons from "./Buttons";
 import styled from "styled-components";
 import { mainBackgroundColor } from "../../consts/colors";
+import TopBar from "../../components/TopBar/TopBar";
 
 const Home = () => {
   const { data } = useMusic();
@@ -18,6 +19,7 @@ const Home = () => {
   if (started) {
     return (
       <Container>
+        <TopBar />
         {currentSong && (
           <div style={{}}>
             <MusicPlayer songs={songs}></MusicPlayer>
@@ -28,6 +30,7 @@ const Home = () => {
   } else {
     return (
       <Container>
+        <TopBar />
         {songs.length ? (
           <TextAndButtonContainer>
             <Buttons onClick={start} />

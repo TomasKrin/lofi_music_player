@@ -29,7 +29,7 @@ const TextContainer = styled.div`
   height: 100%;
 
   @media (max-width: 768px) {
-    top: -5px;
+    top: 10px;
   }
 
   &.enter {
