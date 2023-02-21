@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { mainBackgroundColor } from "../../consts/colors";
+import { useCreateUser } from "../../hooks/user";
 import { LOGIN_PATH } from "../../routes/consts";
 
 const validationSchema = Yup.object().shape({
@@ -17,14 +18,18 @@ const validationSchema = Yup.object().shape({
 
 const Register = () => {
   const navigate = useNavigate();
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    setTimeout(() => {
-      const { nickname, password } = values;
-      const requiredValues = { nickname, password };
-      alert(JSON.stringify(requiredValues, null, 2));
-      setSubmitting(false);
-      resetForm();
-    }, 2000);
+
+  const { mutateAsync: createUser } = useCreateUser();
+
+  const handleSubmit = (values) => {
+    const { confirm_password, ...user } = values;
+    createUser(user)
+      .then(() => {
+        navigate(LOGIN_PATH);
+      })
+      .catch((error) => {
+        console.error("failed to create user", error);
+      });
   };
 
   return (

@@ -1,9 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
+import { useLocalStorage } from "../hooks/localStorage";
 const UserContext = createContext();
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  console.log(user);
+  const [user, setUser] = useLocalStorage("user", null);
 
-  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
+  const isLoggedIn = !!user;
+
+  const handleLogOut = () => {
+    setUser(null);
+  };
+
+  return (
+    <UserContext.Provider value={{ user, isLoggedIn, setUser, handleLogOut }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 export { UserContext, UserProvider };

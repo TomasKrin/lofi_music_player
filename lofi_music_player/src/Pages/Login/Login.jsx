@@ -5,7 +5,10 @@ import * as Yup from "yup";
 import Button from "../../components/Button/Button";
 import FormikInput from "../../components/Formik/FormikInput";
 import { mainBackgroundColor } from "../../consts/colors";
-import { REGISTER_PATH } from "../../routes/consts";
+import { HOME_PATH, REGISTER_PATH } from "../../routes/consts";
+import { useLoginUser } from "../../hooks/user";
+import { UserContext } from "../../contexts/UserContext";
+import { useContext } from "react";
 
 const validationSchema = Yup.object().shape({
   nickname: Yup.string().required("Required"),
@@ -14,12 +17,19 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-      resetForm();
-    }, 2000);
+  const { setUser } = useContext(UserContext);
+
+  const { mutateAsync: loginUser } = useLoginUser();
+
+  const handleSubmit = (values) => {
+    loginUser(values)
+      .then((response) => {
+        setUser(response);
+        navigate(HOME_PATH);
+      })
+      .catch((error) => {
+        console.log("Failed to login:", error);
+      });
   };
 
   return (
