@@ -9,6 +9,7 @@ const PrimaryButton = styled.button`
   color: #ffffff;
   cursor: pointer;
   font-size: 16px;
+  white-space: nowrap;
   &:hover {
     background-color: ${secondaryButtonColor};
   }

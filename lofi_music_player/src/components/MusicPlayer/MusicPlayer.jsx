@@ -4,7 +4,7 @@ import AudioControls from "../../components/AudioControls/AudioControls";
 import AnimatedText from "../../components/AnimatedText/AnimatedText";
 import { mainBackgroundColor } from "../../consts/colors";
 import { useMusic } from "../../hooks/music";
-import ThreeApp from "../../components/Canvas/ThreeApp";
+import ThreeApp from "../../components/ThreeApp/ThreeApp";
 
 const MusicPlayer = () => {
   const { data } = useMusic();
@@ -204,6 +204,10 @@ const PlayerContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const SongTimeBar = styled.input`
@@ -232,6 +236,9 @@ const VolumeControlBar = styled.input`
   background: black;
   transition: background 0.2s ease;
   cursor: pointer;
+  @media (max-width: 768px) {
+    display: none;
+  }
   &:active {
     background: #482880;
   }

@@ -29,4 +29,6 @@ export default AudioControls;
 
 const ControlsContainer = styled.div`
   font-size: 3em;
+  display: flex;
+  flex-wrap: nowrap;
 `;
