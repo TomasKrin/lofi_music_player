@@ -20,6 +20,10 @@ input {
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
